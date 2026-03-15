@@ -24,6 +24,11 @@ body{
     overflow: hidden;
 }
 
+input::placeholder{
+    opacity: 1;
+    color: rgb(31, 31, 31);
+}
+
 button{
     font-family: montserrat, 'Times New Roman', Times, serif;
     border: 0;
@@ -49,29 +54,43 @@ button:focus{
 }
 
 .titleLogo{
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
 }
 
 .headerDisplay{
+    overflow: hidden;
     width: 100%;
-    height: 15%;
+    height: 10%;
     box-sizing: border-box;
-    font-size: 35px;
+    font-size: 28px;
     padding: 20px;
     background-color: #0f1b2f9e;
     display: flex;
     text-align: center;
-    justify-content: center;
     align-items: center;
-    border-bottom: 5px solid #F5F7FA;
+}
+
+.titleDisplayContainer{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.searchBar{
+    height: 100%;
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    font-size: 12px;
 }
 
 .itemList{
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    height: 77%;
+    height: 75%;
     width: 100%;
     overflow: scroll;
     align-content: start;
@@ -79,7 +98,7 @@ button:focus{
 }
 
 .itemList .itemDiv{
-    border: 1px solid white;
+    border: 2px solid rgba(43, 42, 42, 0.564);
 }
 
 .itemList .itemDiv:nth-child(even){
@@ -133,29 +152,128 @@ button:focus{
     font-size: 20px;
 }
 
+.searchBarDiv{
+    display: flex;
+    align-items: center;
+    height: 70%;
+    width: 20%;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgb(205, 211, 216);
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.searchBarContainer{
+    height: 7%;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: #959eae9e;
+    align-items: center;
+    border-top: 2px solid rgb(219, 219, 219);
+    box-sizing: border-box;
+    border-bottom: #0f1b2f9e 4px solid;
+    overflow: hidden;
+}
+
+.searchBar:focus{
+    outline: 0;
+}
+
+.noResult{
+    margin: 20px;
+}
+
+.searchIcon{
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+.clearSearchIcon{
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    display: none;
+}
+
+.clearSearchIcon:hover, .searchIcon:hover{
+    cursor: pointer;
+    filter: opacity(0.6);
+}
+
+.filterCategoryDiv{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+    overflow: scroll;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: auto;
+}
+
+.categoryTitle{
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #0f1b2f9e;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.categoryTitle.selectedCategory{
+    background-color: #1484cfd0;
+}
+
+.categoryTitle:hover{
+    cursor: pointer;
+    filter: brightness(0.7);
+}
+
+.filterCategoryDiv{
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.filterCategoryDiv::-webkit-scrollbar{
+    display: none;
+}
+
 .itemPurchase{
     width: 35%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     height: 100%;
-    font-size: 25px;
+    font-size: 20px;
     justify-content: center;
+    box-sizing: border-box;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 .increaseAmount, .decreaseAmount{
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 0;
+    background-color: #43b8f8a0;
+    box-sizing: border-box;
 }
 
 .amountButtonImg{
     width: 70%;
     height: 70%;
+    filter: invert(1);
 }
 
 .decreaseAmount:hover, .increaseAmount:hover{
@@ -201,7 +319,7 @@ button:focus{
     border-radius: 5px;
     padding-right: 15px;
     color: white;
-    background-color: #051124d0;
+    background-color: #1484cfd0;
     border: 0;
 }
 
@@ -217,8 +335,7 @@ button:focus{
 }
 
 .seeTotalReport{
-    position: absolute;
-    left: 10px;
+    left: 20px;
     font-size: 10px;
 }
 
@@ -228,7 +345,7 @@ button:focus{
 }
 
 .reportImg{
-    width: 40px;
+    width: 30px;
     filter: invert(0.9);
 }
 
@@ -512,19 +629,32 @@ button:focus{
         flex-direction: column-reverse;
     }
 
-    .itemDiv{
+    .itemList .itemDiv{
+        border-left: 0;
+        border-right: 0;
         width: 100%;
     }
 
     .itemAmount{
-        width: 10px;
+        width: 20px;
         text-align: center;
         margin: 15px;
+        font-size: 17px;
     }
 
     .itemName{
         font-weight: bold;
         font-size: 14px;
+    }
+
+    .categoryTitle{
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #0f1b2f9e;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-size: 12px;
     }
 
     .amountTitleItem{
@@ -533,6 +663,12 @@ button:focus{
 
     .itemPurchase{
         font-size: 20px;
+        width: 30%;
+    }
+
+    .increaseAmount, .decreaseAmount{
+        width: 25px;
+        height: 25px;
     }
 
     .itemPrice{
@@ -545,11 +681,28 @@ button:focus{
 
     .checkoutDetail{
         font-size: 12px;
-        height: 13%;
     }
     
     .checkoutTitle{
         width: 20%;
+        margin-left: 0%;
+    }
+    
+    .searchBarDiv{
+        width: 45%;
+    }
+
+    .proceedCheckout{
+        font-size: 12px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        padding-right: 15px;
+        color: white;
+        background-color: #1484cfd0;
+        border: 0;
+        margin-right: 10px;
     }
 
     .totalPrice{
@@ -558,28 +711,35 @@ button:focus{
         margin-left: 5px;
     }
 
+    .filterCategoryDiv{
+        width: 50%;
+    }
+
     .shoppingImg{
         width: 25px;
         margin: 15px;
     }
     
     .titleLogo{
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
     }
 
     .reportImg{
-        transform: scale(0.7, 0.7);
+        transform: scale(0.8, 0.8);
     }
 
     .headerDisplay{
         font-size: 25px;
-        height: 10%;
     }
 
     .invoiceLogo{
         width: 45px;
         height: 45px;
+    }
+
+    .detailsItem{
+        width: 40%;
     }
 
     .invoiceTitleDisplay{
@@ -592,8 +752,17 @@ button:focus{
         padding-right: 10%;
     }
 
+    .titleDisplay{
+        margin-left: 0px;
+        margin-right: 20px;
+    }
+
     .detailTitle{
         font-size: 10px;
+    }
+
+    .imageDiv{
+        margin: 0px;
     }
 
     .itemDetailsInvoice div{
