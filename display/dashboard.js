@@ -327,6 +327,8 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 			}
 		}
 
+		itemList.scrollTop = 0;
+
 		noResultCheck()
 	}
 
