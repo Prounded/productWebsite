@@ -60,10 +60,12 @@ if (localStorage.getItem('currentDisplay') === 'receipt') {
 			confirmButtonColor: '#1f8437',
 			confirmButtonText: 'Ya, Kembali!',
 			reverseButtons: true,
+			scrollbarPadding: false,
+			heightAuto: false,
 		}).then((result) => {
 			if (result.isConfirmed) {
-                localStorage.setItem('currentDisplay', 'dashboard');
-                window.location.reload();
+				localStorage.setItem('currentDisplay', 'dashboard');
+				window.location.reload();
 			}
 		});
     }
@@ -78,56 +80,60 @@ if (localStorage.getItem('currentDisplay') === 'receipt') {
 			confirmButtonColor: '#1f8437',
 			confirmButtonText: 'Ya, Simpan!',
 			reverseButtons: true,
+			scrollbarPadding: false,
+			heightAuto: false,
 		}).then((result) => {
-            if (result.isConfirmed) {
-                const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || {};
-                const dataItem = JSON.parse(localStorage.getItem('dataItem'));
+			if (result.isConfirmed) {
+				const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || {};
+				const dataItem = JSON.parse(localStorage.getItem('dataItem'));
 
-                for (let i = 0; i < Object.keys(dataItem).length; i++) {
-                    const currentID = Object.keys(dataItem)[i];
-                    const currentItem = dataItem[currentID];
-                    let currentAddAmount = currentItem.amount;
+				for (let i = 0; i < Object.keys(dataItem).length; i++) {
+					const currentID = Object.keys(dataItem)[i];
+					const currentItem = dataItem[currentID];
+					let currentAddAmount = currentItem.amount;
 
-                    if (currentItem.amount > 0) {
-                        let purchaseID = Object.keys(purchaseHistory).length + 1;
-                        
-                        for (let j = 1; j <= Object.keys(purchaseHistory).length; j++) {
-                            if (purchaseHistory[j].product === currentItem.product && purchaseHistory[j].price === currentItem.price) {
-                                const lastAmount = purchaseHistory[j].amount;
-                                currentAddAmount += lastAmount;
-                                purchaseID = j;
-                                break;
-                            }
+					if (currentItem.amount > 0) {
+						let purchaseID = Object.keys(purchaseHistory).length + 1;
 
+						for (let j = 1; j <= Object.keys(purchaseHistory).length; j++) {
+							if (
+								purchaseHistory[j].product === currentItem.product &&
+								purchaseHistory[j].price === currentItem.price
+							) {
+								const lastAmount = purchaseHistory[j].amount;
+								currentAddAmount += lastAmount;
+								purchaseID = j;
+								break;
+							}
+						}
 
-                        }
-
-                        purchaseHistory[purchaseID] = {
+						purchaseHistory[purchaseID] = {
 							product: currentItem.product,
 							price: currentItem.price,
 							amount: currentAddAmount,
 						};
-                        localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+						localStorage.setItem('purchaseHistory', JSON.stringify(purchaseHistory));
+					}
+				}
 
-                    }
-                }
-
-                Swal.fire({
+				Swal.fire({
 					position: 'center',
 					icon: 'success',
 					title: 'Pembelian Disimpan!',
-                    text: 'Anda akan diarahkan kembali ke halaman dashboard',
+					text: 'Anda akan diarahkan kembali ke halaman dashboard',
 					showConfirmButton: false,
-					timer: TIMER_ADD_PURCHASE,
+					timer: TIMER_ANIMATION_DURATION,
+					scrollbarPadding: false,
+					heightAuto: false,
 				});
-                
-                setTimeout(() => {
+
+				setTimeout(() => {
 					localStorage.setItem('dataItem', JSON.stringify({}));
 					localStorage.setItem('totalItem', 0);
 					localStorage.setItem('totalPrice', 0);
 					localStorage.setItem('currentDisplay', 'dashboard');
 					window.location.reload();
-				}, TIMER_ADD_PURCHASE);
+				}, TIMER_ANIMATION_DURATION);
 			}
 		});
     }

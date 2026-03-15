@@ -1,7 +1,3 @@
-//Sistem save localstorage (refresh ga ilang)
-// Sistem menghasilkan kwitansi (stuk) setiap pembelian
-// Sistem menampilkan hasil akhir
-
 if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getItem('currentDisplay')) {
 	localStorage.setItem('currentDisplay', 'dashboard');
 
@@ -72,7 +68,7 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 
 		const amountTitleItem = document.createElement('div');
 		amountTitleItem.classList.add('amountTitleItem');
-		amountTitleItem.textContent = 'Total';
+		amountTitleItem.textContent = 'Quantity : ';
 
 		itemPurchase.appendChild(amountTitleItem);
 
@@ -88,7 +84,7 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 		});
 		increaseAmount.appendChild(amountButtonImgUp);
 
-		const itemAmount = document.createElement('itemAmount');
+		const itemAmount = document.createElement('div');
 		itemAmount.classList.add('itemAmount');
 		itemAmount.textContent = currentItemAmount;
 
@@ -138,7 +134,6 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 		const currentItem = document.querySelector(`#item${id}.itemDiv`);
 		const currentData = currentItem.querySelector('.itemPurchase');
 		const amountItemAdded = Number(currentItemData[id].amount) + 1;
-		console.log(amountItemAdded);
 
 		currentItem.querySelector('.itemAmount').textContent = amountItemAdded;
 		currentData.setAttribute('data-amount', amountItemAdded);
@@ -230,17 +225,164 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 		}
 	}
 
+	function searchItem(value) { 
+		const itemList = document.querySelector('.itemList');
+		document.querySelectorAll('.itemDiv').forEach((item) => {
+			itemList.removeChild(item);
+		});
+		
+		value = value.replaceAll(' ', '_');
+		let currentFilter = JSON.parse(localStorage.getItem('filterSettings'));
+
+		if (!value) {
+			currentFilter.value = undefined;
+			localStorage.setItem('filterSettings', JSON.stringify(currentFilter));
+
+			document.querySelector('.clearSearchIcon').style.display = 'none';
+		} else {
+			currentFilter.value = value;
+			localStorage.setItem('filterSettings', JSON.stringify(currentFilter));
+
+			document.querySelector('.clearSearchIcon').style.display = 'block';
+		}
+
+		filterProduct();
+	}
+	
+	function sortByCategory(category) {
+		const filterCategoryDiv = document.querySelector('.filterCategoryDiv');
+		const selectedCategory = filterCategoryDiv.querySelector('.selectedCategory');
+
+		if (selectedCategory && category !== selectedCategory.getAttribute('data-category')) {
+			selectedCategory.classList.remove('selectedCategory');
+		}
+
+		event.target.classList.toggle('selectedCategory');
+
+		const currentCategory = filterCategoryDiv.querySelector('.selectedCategory');
+
+		const itemList = document.querySelector('.itemList');
+		document.querySelectorAll('.itemDiv').forEach((item) => {
+			itemList.removeChild(item);
+		}); 
+
+		let currentFilter = JSON.parse(localStorage.getItem('filterSettings'));
+
+		if (currentCategory) {
+			currentFilter.category = currentCategory.getAttribute('data-category');
+			console.log(currentFilter)
+			localStorage.setItem('filterSettings', JSON.stringify(currentFilter));
+		}
+		else {
+			currentFilter.category = undefined;
+			localStorage.setItem('filterSettings', JSON.stringify(currentFilter));
+		}
+
+		filterProduct();
+	}
+
+	function clearSearch() {
+		document.querySelector('.searchBar').value = '';
+		document.querySelector('.clearSearchIcon').style.display = 'none';
+
+		searchItem('');
+	}
+
+	function filterProduct() {
+		let productFiltered = [];
+		const filterValue = JSON.parse(localStorage.getItem('filterSettings') || {});
+		const value = filterValue.value;
+		const category = filterValue.category;
+
+		const itemList = document.querySelector('.itemList');
+		document.querySelectorAll('.itemDiv').forEach((item) => {
+			itemList.removeChild(item);
+		});
+
+		if (value) {
+			for (let i = 0; i < Object.keys(ITEMS_LIST).length; i++) {
+				if (!Object.keys(ITEMS_LIST)[i].toLowerCase().includes(value.toLowerCase())) {
+					productFiltered.push(Object.keys(ITEMS_LIST)[i]);
+				}
+			}
+		}
+
+		if (category) {
+			for (let i = 0; i < Object.keys(ITEMS_LIST).length; i++) {
+				if (
+					Object.values(ITEMS_LIST)[i][3].toLowerCase() !== category.toLowerCase() && !productFiltered.includes(Object.values(ITEMS_LIST)[i])
+				) {
+					productFiltered.push(Object.keys(ITEMS_LIST)[i]);
+				}
+			}
+			
+		}
+
+		for (let i = 0; i < Object.keys(ITEMS_LIST).length; i++) {
+			if (!productFiltered.includes(Object.keys(ITEMS_LIST)[i])) {
+				const addItems = addItemList(Object.values(ITEMS_LIST)[i][0], i);
+				if (addItems) {
+					document.querySelector('.itemList').appendChild(addItems);
+				}
+			}
+		}
+
+		noResultCheck()
+	}
+
 	function load() {
 		app.innerHTML = dashboardDisplay;
+
 		document.title = 'Dashboard - Dunia Jajanku';
+
 		document.querySelector('.proceedCheckout').addEventListener('click', checkoutAlert);
 		document.querySelector('.seeTotalReport').addEventListener('click', seeReport);
+		document.querySelector('.searchIcon').addEventListener('click', () => {
+			document.querySelector('.searchBar').focus();
+		});
+		document.querySelector('.searchBar').addEventListener('input', (value) => {
+			searchItem(value.target.value);
+		});
+		document.querySelector('.clearSearchIcon').addEventListener('click', clearSearch);
+
+		const filterCategoryDiv = document.querySelector('.filterCategoryDiv');
+
+		function filterCategory(category) {
+			const allCategory = document.querySelectorAll('.categoryTitle');
+
+			for (let j = 0; j < allCategory.length; j++) {
+				if (allCategory[j].textContent === category) {
+					return false;
+				}
+			}
+
+			return true;
+		}
 		for (let i = 0; i < Object.keys(ITEMS_LIST).length; i++) {
 			const addItems = addItemList(Object.values(ITEMS_LIST)[i][0], i);
+
+			const currentCategory = Object.values(ITEMS_LIST)[i][3];
+			if (filterCategory(currentCategory)) {
+				const categoryTitle = document.createElement('div');
+				categoryTitle.classList.add('categoryTitle');
+				categoryTitle.textContent = currentCategory;
+				categoryTitle.setAttribute('data-category', currentCategory);
+				categoryTitle.addEventListener('click', () => sortByCategory(currentCategory));
+				filterCategoryDiv.appendChild(categoryTitle);
+			}
+
 			if (addItems) {
 				document.querySelector('.itemList').appendChild(addItems);
 			}
 		}
+
+		localStorage.setItem(
+			'filterSettings',
+			JSON.stringify({
+				value: undefined,
+				category: undefined,
+			}),
+		);
 		calculateTotalPrice();
 	}
 
@@ -251,7 +393,9 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 				icon: 'error',
 				title: 'Tidak ada barang yang dipilih',
 				showConfirmButton: false,
-				timer: 1500,
+				timer: TIMER_ANIMATION_DURATION,
+				scrollbarPadding: false,
+				heightAuto: false,
 			});
 		} else {
 			Swal.fire({
@@ -263,6 +407,8 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 				confirmButtonColor: '#1f8437',
 				confirmButtonText: 'Ya, Lanjutkan!',
 				reverseButtons: true,
+				scrollbarPadding: false,
+				heightAuto: false,
 			}).then((result) => {
 				if (result.isConfirmed) {
 					seeReceipt();
@@ -281,7 +427,20 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 		window.location.reload();
 	}
 
+	function noResultCheck() {
+		const itemList = document.querySelector('.itemList');
+
+		for (let i = 0; i < itemList.querySelectorAll('.noResult').length; i++) {
+			itemList.removeChild(itemList.querySelectorAll('.noResult')[i]);
+		}
+
+		if (document.querySelectorAll('.itemDiv').length < 1) {
+			const noResult = document.createElement('div');
+			noResult.classList.add('noResult');
+			noResult.textContent = NO_RESULT_TEXT;
+			document.querySelector('.itemList').appendChild(noResult);
+		}
+	}
+
 	load();
 }
-
-//DATA JADIIN SATU DICT (ID, Nama produk, harga, jumlah dipilih.)

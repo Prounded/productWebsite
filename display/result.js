@@ -42,10 +42,25 @@ if (localStorage.getItem('currentDisplay') === 'result') {
 			cancelButtonColor: '#1f8437',
 			confirmButtonText: 'Ya, Hapus!',
 			reverseButtons: true,
+			scrollbarPadding: false,
+			heightAuto: false,
 		}).then((result) => {
 			if (result.isConfirmed) {
-				localStorage.removeItem('purchaseHistory');
-				returnDashboard();
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Data Laporan Penjualan Dihapus!',
+					text: 'Anda akan diarahkan kembali ke dashboard',
+					showConfirmButton: false,
+					timer: TIMER_ANIMATION_DURATION,
+					scrollbarPadding: false,
+					heightAuto: false,
+				});
+
+				setTimeout(() => {
+					localStorage.removeItem('purchaseHistory');
+					returnDashboard();
+				}, TIMER_ANIMATION_DURATION);
 			}
 		});
 	}
@@ -85,6 +100,8 @@ if (localStorage.getItem('currentDisplay') === 'result') {
 	}
 
 	async function uploadReport() { 
+		const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || {};
+		console.log(purchaseHistory);
 		Swal.fire({
 			title: 'Upload Laporan Penjualan?',
 			text: 'Aksi ini akan menghilangkan data yang ada di Google Sheets sebelumnya',
@@ -94,9 +111,21 @@ if (localStorage.getItem('currentDisplay') === 'result') {
 			confirmButtonColor: '#1f8437',
 			confirmButtonText: 'Ya, Lanjutkan!',
 			reverseButtons: true,
+			scrollbarPadding: false,
+			heightAuto: false,
 		}).then(async (result) => {
 			if (result.isConfirmed) {
-				const purchaseHistory = JSON.parse(localStorage.getItem('purchaseHistory')) || {};
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Upload Berhasil!',
+					text: 'Cek Google Sheets untuk melihat laporan penjualan terbaru.',
+					showConfirmButton: false,
+					timer: TIMER_ANIMATION_DURATION,
+					scrollbarPadding: false,
+					heightAuto: false,
+				});
+
 				await fetch(GOOGLE_SCRIPT_URL, {
 					method: 'POST',
 					body: JSON.stringify({
@@ -108,7 +137,7 @@ if (localStorage.getItem('currentDisplay') === 'result') {
 									price: purchaseHistory[key].price,
 									amount: purchaseHistory[key].amount,
 								};
-							})
+							}),
 						],
 					}),
 				});
