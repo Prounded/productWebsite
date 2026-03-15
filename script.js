@@ -34,7 +34,7 @@ const ITEMS_LIST = {
 	Lumpia_Goreng: [23, 12000, './image/lumpiaGoreng.jpeg', 'Gorengan'],
 	Susu_Kedelai: [24, 12000, './image/susuKedelai.jpg', 'Minuman'],
 	Bakpia_Kacang_Hijau: [25, 20000, './image/bakpiaKacangHijau.png', 'Kue'],
-	Mie_Goreng: [26, 10000, './image/bakpiaKacangHijau.png', 'Mie'],
+	Mie_Goreng: [26, 10000, './image/mieGoreng.png', 'Mie'],
 };
 
 const dashboardDisplay = `
