@@ -23,7 +23,7 @@ const ITEMS_LIST = {
 	Lemper_Ayam: [12, 7000, './image/lemperAyam.jpg', 'Nasi'],
 	Bakso_Goreng: [13, 12000, './image/baksoGoreng.png', 'Gorengan'],
 	Mohyang_Ayam: [14, 23000, './image/mohyangAyam.jpg', 'Gorengan'],
-	Getuk_original: [15, 5000, './image/getukOriginal.jpg', 'Kue'],
+	Getuk_Original: [15, 5000, './image/getukOriginal.jpg', 'Kue'],
 	Getuk_Cokelat: [16, 6000, './image/getukCokelat.jpg', 'Kue'],
 	Singkong_Thailand: [17, 8000, './image/singkongThailand.jpg', 'Kue'],
 	Bola_Ubi: [18, 10000, './image/bolaUbi.jpg', 'Kue'],
@@ -67,6 +67,7 @@ const dashboardDisplay = `
 <div class="totalItemsAmount"></div>
 <div class="checkoutTitle">Total : </div>
 <div class="totalPrice"></div>
+<button class="clearItems">Cancel</button>
 <button class="proceedCheckout">Checkout</button>
 </div>
 `;
