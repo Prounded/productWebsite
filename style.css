@@ -301,7 +301,7 @@ button:focus{
 }
 
 .totalItemsAmount{
-    width: 70%;
+    width: 60%;
 }
 
 .checkoutTitle{
@@ -410,6 +410,19 @@ button:focus{
     align-items: center;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.clearItems{
+    background-color: #d12b2bd0;
+    box-sizing: border-box;
+    color: rgb(245, 245, 245);
+    border-radius: 5px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    padding-left: 15px;
+    border-radius: 5px;
+    padding-right: 15px;
+    margin-right: 25px;
 }
 
 .invoiceTitleDisplay{
@@ -690,6 +703,18 @@ button:focus{
     
     .searchBarDiv{
         width: 45%;
+    }
+    
+    .clearItems{
+        font-size: 12px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        padding-right: 15px;
+        color: white;
+        background-color: #d12b2bd0;
+        border: 0;
     }
 
     .proceedCheckout{
