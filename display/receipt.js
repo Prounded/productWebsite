@@ -51,23 +51,8 @@ if (localStorage.getItem('currentDisplay') === 'receipt') {
     }
 
     function cancelInvoice() {
-        Swal.fire({
-			title: 'Kembali ke Dashboard?',
-			text: 'Anda akan kembali ke halaman dashboard',
-			icon: 'info',
-			showCancelButton: true,
-			cancelButtonColor: '#d33',
-			confirmButtonColor: '#1f8437',
-			confirmButtonText: 'Ya, Kembali!',
-			reverseButtons: true,
-			scrollbarPadding: false,
-			heightAuto: false,
-		}).then((result) => {
-			if (result.isConfirmed) {
-				localStorage.setItem('currentDisplay', 'dashboard');
-				window.location.reload();
-			}
-		});
+		localStorage.setItem('currentDisplay', 'dashboard');
+		window.location.reload();
     }
 
     function saveInvoice() { 
