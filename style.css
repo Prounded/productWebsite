@@ -300,12 +300,9 @@ button:focus{
     align-items: center;
 }
 
-.totalItemsAmount{
-    width: 60%;
-}
-
 .checkoutTitle{
     width: 5%;
+    margin-left: 35%;
 }
 
 .totalPrice{
@@ -414,6 +411,7 @@ button:focus{
 
 .clearItems{
     background-color: #d12b2bd0;
+    width: 90px;
     box-sizing: border-box;
     color: rgb(245, 245, 245);
     border-radius: 5px;
@@ -613,6 +611,14 @@ button:focus{
     height: 30px;
 }
 
+.checkoutDiv{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 30%;
+}
+
 .sheetsOpen{
     font-size: 15px;
     display: flex;
@@ -628,6 +634,17 @@ button:focus{
     border-radius: 5px;
 }
 
+.buttonActionContainer{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonActionContainer button{
+    height: 70%;
+}
+
 .sheetsOpen:hover{
     cursor: pointer;
     filter: brightness(0.7);
@@ -638,6 +655,15 @@ button:focus{
 }
 
 @media (max-width: 900px){
+    .buttonActionContainer{
+        flex-direction: column;
+    }
+
+    .buttonActionContainer button{
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
     .buttonFooter{
         flex-direction: column-reverse;
     }
@@ -646,6 +672,10 @@ button:focus{
         border-left: 0;
         border-right: 0;
         width: 100%;
+    }
+
+    .itemList{
+        height: 72%;
     }
 
     .itemAmount{
@@ -688,21 +718,27 @@ button:focus{
         font-size: 15px;
     }
 
-    .totalItemsAmount{
-        width: 50%;
-    }
-
     .checkoutDetail{
+        height: 11%;
         font-size: 12px;
     }
     
     .checkoutTitle{
         width: 20%;
-        margin-left: 0%;
+        margin-left: 10%;
     }
     
     .searchBarDiv{
         width: 45%;
+    }
+
+    .checkoutDiv{
+        padding-left: 10px;
+        flex-direction: column;
+    }
+
+    .totalItemsAmount{
+        box-sizing: border-box;
     }
     
     .clearItems{
@@ -712,6 +748,7 @@ button:focus{
         padding-left: 15px;
         border-radius: 5px;
         padding-right: 15px;
+        margin-right: 10px;
         color: white;
         background-color: #d12b2bd0;
         border: 0;
@@ -719,6 +756,7 @@ button:focus{
 
     .proceedCheckout{
         font-size: 12px;
+        width: 90px;
         padding-bottom: 5px;
         padding-top: 5px;
         padding-left: 15px;
@@ -742,7 +780,7 @@ button:focus{
 
     .shoppingImg{
         width: 25px;
-        margin: 15px;
+        margin: 10px;
     }
     
     .titleLogo{
