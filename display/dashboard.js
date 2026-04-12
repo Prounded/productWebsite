@@ -208,11 +208,12 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 
 				const dataItem = JSON.parse(localStorage.getItem('dataItem'));
 
-				const currentAmount = Number(dataItem[currentID].amount);
-
-				const itemPrices = dataItem[currentID].price;
-				totalPrice += itemPrices * currentAmount;
-				totalAmount += currentAmount;
+				if(dataItem[currentID]) {
+					const currentAmount = Number(dataItem[currentID].amount);
+					const itemPrices = dataItem[currentID].price;
+					totalPrice += itemPrices * currentAmount;
+					totalAmount += currentAmount;
+				}
 			}
 
 			if (totalAmount > 1) {
@@ -346,6 +347,7 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 			searchItem(value.target.value);
 		});
 		document.querySelector('.clearSearchIcon').addEventListener('click', clearSearch);
+		document.querySelector('.clearItems').addEventListener('click', clearItems);
 
 		const filterCategoryDiv = document.querySelector('.filterCategoryDiv');
 
@@ -400,22 +402,7 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 				heightAuto: false,
 			});
 		} else {
-			Swal.fire({
-				title: 'Lanjutkan Pembelian?',
-				text: 'Anda akan diarahkan ke halaman invoice untuk melihat rincian pembelian',
-				icon: 'info',
-				showCancelButton: true,
-				cancelButtonColor: '#d33',
-				confirmButtonColor: '#1f8437',
-				confirmButtonText: 'Ya, Lanjutkan!',
-				reverseButtons: true,
-				scrollbarPadding: false,
-				heightAuto: false,
-			}).then((result) => {
-				if (result.isConfirmed) {
-					seeReceipt();
-				}
-			});
+			seeReceipt();
 		}
 	}
 
@@ -442,6 +429,46 @@ if (localStorage.getItem('currentDisplay') === 'dashboard' || !localStorage.getI
 			noResult.textContent = NO_RESULT_TEXT;
 			document.querySelector('.itemList').appendChild(noResult);
 		}
+	}
+
+	function clearItems() {
+		Swal.fire({
+			title: 'Batalkan semua item yang dipilih?',
+			icon: 'warning',
+			showCancelButton: true,
+			cancelButtonColor: '#d33',
+			confirmButtonColor: '#1f8437',
+			confirmButtonText: 'Ya, Batalkan!',
+			reverseButtons: true,
+			scrollbarPadding: false,
+			heightAuto: false,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const dataItem = JSON.parse(localStorage.getItem('dataItem'));
+
+				for (let i = 0; i < Object.keys(dataItem).length; i++) {
+					const currentID = Object.keys(dataItem)[i];
+					dataItem[currentID].amount = 0;
+				}
+				localStorage.setItem('dataItem', JSON.stringify(dataItem));
+				localStorage.setItem('totalItem', 0);
+				localStorage.setItem('totalPrice', 0);
+				calculateTotalPrice();
+				document.querySelectorAll('.itemAmount').forEach((item) => {
+					item.textContent = 0;
+					item.parentElement.setAttribute('data-amount', 0);
+				});
+				Swal.fire({
+					position: 'center',
+					icon: 'success',	
+					title: 'Semua item dibatalkan!',
+					showConfirmButton: false,
+					timer: TIMER_ANIMATION_DURATION,
+					scrollbarPadding: false,
+					heightAuto: false,
+				});
+			}
+		});
 	}
 
 	load();
