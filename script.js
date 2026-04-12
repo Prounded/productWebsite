@@ -63,12 +63,16 @@ const dashboardDisplay = `
 </div>
 
 <div class="checkoutDetail">
-<img class="shoppingImg" src="./image/shoppingIcon.png"></img>
-<div class="totalItemsAmount"></div>
-<div class="checkoutTitle">Total : </div>
-<div class="totalPrice"></div>
-<button class="clearItems">Cancel</button>
-<button class="proceedCheckout">Checkout</button>
+	<div class="checkoutDiv">
+		<img class="shoppingImg" src="./image/shoppingIcon.png"></img>
+		<div class="totalItemsAmount"></div>
+	</div>
+	<div class="checkoutTitle">Total : </div>
+	<div class="totalPrice"></div>
+	<div class="buttonActionContainer">
+		<button class="clearItems">Cancel</button>
+		<button class="proceedCheckout">Checkout</button>
+	</div>
 </div>
 `;
 
