@@ -2,11 +2,11 @@ const app = document.querySelector('.allDisplay');
 
 const TIMER_ANIMATION_DURATION = 1500;
 const NO_RESULT_TEXT = 'Tidak ada hasil yang ditemukan';
-const GOOGLE_SCRIPT_URL =		//Script API upload data to Google Sheets
-	'https://script.google.com/macros/s/AKfycbwwzA96nkfTP-xNpbi2SH0pARF84TZeL2yzgvXZVXhNxtm5EWk67j5TSaYp-xym_XLB/exec';
+const GOOGLE_SCRIPT_URL = //Script API upload data to Google Sheets
+	'https://script.google.com/macros/s/AKfycbykN7t8yux7syYnCRV7RVrj86nSCDpBcmdRw_V0thTlU6Ai2IJ0Qv4asru6hpGysTsq/exec';
 
-const GOOGLE_SHEET_URL =		//Google Sheets link to see the uploaded data
-	'https://docs.google.com/spreadsheets/d/1PVUILPGWNI-kZuBQXAlo7bV0xt_sqp6I1dr3aNGD3c0/edit?usp=sharing';
+const GOOGLE_SHEET_URL = //Google Sheets link to see the uploaded data
+	'https://docs.google.com/spreadsheets/d/1PPS_37ubelscTzGyPFyHl9U_QLXi2xkHl6nrtrSYWsc/edit?usp=sharing';
 const NO_IMAGE_SOURCE = './image/noImageDefault.jpg';
 const ITEMS_LIST = {
 	Kuotie_Kuantung: [1, 25000, './image/kuotieSantungImg.jpeg', 'Kuotie'],
