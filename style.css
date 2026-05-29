@@ -726,12 +726,12 @@ button:focus{
 
 .itemNumberProfit{
     overflow: hidden;
-    width: 5%;
+    width: 6%;
 }
 
 .itemNameProfit{
     overflow: hidden;
-    width: 30%;
+    width: 29%;
 }
 
 .itemQuantityProfit{
@@ -944,8 +944,16 @@ button:focus{
     }
     
     .paymentMethodDisplay{
-        width: 50px;
-        font-size: 12px;
+        font-size: 10px;
+        padding: 5px;
+        max-width: 65px;
+        max-height: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     .paymentMethodDisplay:hover{
@@ -1126,4 +1134,33 @@ button:focus{
         margin-left: 7.5px;
     }
     
+    .itemNumberProfit{
+        overflow: hidden;
+        width: 6%;
+    }
+    
+    .itemNameProfit{
+        overflow: hidden;
+        width: 24%;
+    }
+    
+    .itemQuantityProfit{
+        overflow: hidden;
+        width: 8%;
+    }
+    
+    .itemPriceProfit{
+        overflow: hidden;
+        width: 20%;
+    }
+    
+    .itemInitialPriceProfit{
+        overflow: hidden;
+        width: 20%;
+    }
+    
+    .itemSubtotalProfit{
+        overflow: hidden;
+        width: 22%;
+    }
 }
