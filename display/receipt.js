@@ -49,10 +49,11 @@ if (localStorage.getItem('currentDisplay') === 'receipt') {
             }
 		}
 		
-		const paymentMethod = localStorage.getItem('paymentMethod');
+		let paymentMethod = localStorage.getItem('paymentMethod');
 		const paymentMethodDisplay = document.querySelector('.paymentMethodDisplay');
 		if (!paymentMethod) {
 			localStorage.setItem('paymentMethod', PAYMENT_METHODS[0]);
+			paymentMethod = localStorage.getItem('paymentMethod')
 		}
 
 		paymentMethodDisplay.textContent = paymentMethod;
