@@ -21,11 +21,11 @@ if (localStorage.getItem('currentDisplay') === 'receipt') {
         itemDetailsInvoice.appendChild(itemQuantityInvoice);
         const itemPriceInvoice = document.createElement('div');
         itemPriceInvoice.classList.add('itemPriceInvoice');
-        itemPriceInvoice.textContent = `Rp ${price.toLocaleString('id-ID')}`;
+        itemPriceInvoice.textContent = price.toLocaleString('id-ID');
         itemDetailsInvoice.appendChild(itemPriceInvoice);
         const itemSubtotalInvoice = document.createElement('div');
         itemSubtotalInvoice.classList.add('itemSubtotalInvoice');
-        itemSubtotalInvoice.textContent = `Rp ${(price * amount).toLocaleString('id-ID')}`;
+        itemSubtotalInvoice.textContent = (price * amount).toLocaleString('id-ID');
         itemDetailsInvoice.appendChild(itemSubtotalInvoice);
 
     }
